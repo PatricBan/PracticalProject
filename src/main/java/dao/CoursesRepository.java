@@ -1,7 +1,7 @@
 package dao;
 
 
-import entity.Courses;
+import entity.Course;
 import util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -11,8 +11,8 @@ import java.util.List;
 
 public class CoursesRepository {
 
-    public List<Courses> displayAllCourses(){
-        List<Courses> coursesList = new ArrayList<>();
+    public List<Course> displayAllCourses(){
+        List<Course> coursesList = new ArrayList<>();
 
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
