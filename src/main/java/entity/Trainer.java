@@ -11,8 +11,11 @@ public class Trainer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Integer idTrainer;
+
     @ManyToMany(mappedBy = "trainers", cascade = CascadeType.ALL)
     private Set<Client> clients;
+
+
      private String firstName;
      private String lastName;
      private String email;

@@ -9,11 +9,17 @@ import java.util.Set;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idClient;
+
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "client_trainer")
+    @JoinTable(name = "client_trainer",
+            joinColumns = { @JoinColumn(name = "idClient") },
+            inverseJoinColumns = { @JoinColumn(name = "idTrainer")})
+
     private Set<Trainer> trainers;
-    private Integer idClient;
+
+
     private String firstName;
     private String lastName;
     private Integer age;
