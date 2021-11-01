@@ -2,6 +2,7 @@ package util;
 
 import entity.Course;
 import entity.Client;
+import entity.Trainer;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -33,6 +34,7 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Course.class);
               //  configuration.addAnnotatedClass(CoursesRepository.class);
                 configuration.addAnnotatedClass(Client.class);
+                configuration.addAnnotatedClass(Trainer.class);
              //   configuration.addAnnotatedClass(ClientsRepository.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

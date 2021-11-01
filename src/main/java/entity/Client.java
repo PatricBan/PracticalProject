@@ -2,12 +2,17 @@ package entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "clients")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "client_trainer")
+    private Set<Trainer> trainers;
     private Integer idClient;
     private String firstName;
     private String lastName;

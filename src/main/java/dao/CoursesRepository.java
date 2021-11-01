@@ -16,7 +16,7 @@ public class CoursesRepository {
 
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("SELECT courses FROM Courses courses");
+            Query query = session.createQuery("SELECT courses FROM Course courses");
             coursesList = query.getResultList();
 
 
