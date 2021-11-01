@@ -5,7 +5,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "clients")
-public class Clients {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
@@ -19,7 +19,7 @@ public class Clients {
     private Date subscriptionDate;
 
 
-    public Clients() {
+    public Client() {
     }
 
     public Integer getIdClient() { return idClient;}

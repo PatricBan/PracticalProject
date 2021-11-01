@@ -1,7 +1,7 @@
 package util;
 
-import entity.Courses;
-import entity.Clients;
+import entity.Course;
+import entity.Client;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -24,15 +24,15 @@ public class HibernateUtil {
                 settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
                 settings.put(Environment.URL, "jdbc:mysql://localhost:3306/fitnessapp?serverTimezone=UTC");
                 settings.put(Environment.USER, "root");
-                settings.put(Environment.PASS, "Patricelul-99");
+                settings.put(Environment.PASS, "249824");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
                 settings.put(Environment.HBM2DDL_AUTO, "validate");
                 configuration.setProperties(settings);
-                configuration.addAnnotatedClass(Courses.class);
+                configuration.addAnnotatedClass(Course.class);
               //  configuration.addAnnotatedClass(CoursesRepository.class);
-                configuration.addAnnotatedClass(Clients.class);
+                configuration.addAnnotatedClass(Client.class);
              //   configuration.addAnnotatedClass(ClientsRepository.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
