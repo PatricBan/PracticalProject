@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -10,6 +11,8 @@ public class Trainer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Integer idTrainer;
+    @ManyToMany(mappedBy = "trainers", cascade = CascadeType.ALL)
+    private Set<Client> clients;
      private String firstName;
      private String lastName;
      private String email;
