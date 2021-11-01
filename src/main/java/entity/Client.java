@@ -16,8 +16,13 @@ public class Client {
     @JoinTable(name = "client_trainer",
             joinColumns = { @JoinColumn(name = "idClient") },
             inverseJoinColumns = { @JoinColumn(name = "idTrainer")})
-
     private Set<Trainer> trainers;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "client_course",
+            joinColumns = { @JoinColumn(name = "idClient") },
+            inverseJoinColumns = { @JoinColumn(name = "idCourse")})
+    private Set<Course> courses;
 
 
     private String firstName;

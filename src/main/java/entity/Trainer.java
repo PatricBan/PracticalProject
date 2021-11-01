@@ -15,6 +15,9 @@ public class Trainer {
     @ManyToMany(mappedBy = "trainers", cascade = CascadeType.ALL)
     private Set<Client> clients;
 
+    @ManyToMany(mappedBy = "trainers", cascade = CascadeType.ALL)
+    private Set<Course> courses;
+
 
      private String firstName;
      private String lastName;

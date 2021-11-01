@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "courses")
@@ -11,6 +12,16 @@ public class Course {
     private Integer idCourse;
     private String courseName;
     private String courseDescription;
+
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
+    private Set<Client> clients;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "trainer_course",
+            joinColumns = { @JoinColumn(name = "idCourse") },
+            inverseJoinColumns = { @JoinColumn(name = "idTrainer")})
+    private Set<Trainer> trainers;
+
 
     public Course(){
     }
