@@ -28,6 +28,12 @@ public class Client {
     private String firstName;
     private String lastName;
     private Integer age;
+
+//TODO: VEZI AICI++!!!!
+//    @OneToOne
+//    @JoinColumn(name = "email")
+
+
     private String email;
     private String phoneNumber;
     private String category;

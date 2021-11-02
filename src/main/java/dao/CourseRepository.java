@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoursesRepository {
+public class CourseRepository {
 
     public List<Course> displayAllCourses(){
         List<Course> coursesList = new ArrayList<>();
