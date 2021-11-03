@@ -16,7 +16,14 @@ public class CourseRepository {
     public boolean checkCourseName(String courseName){
         List<Course> courseList = getAllCourses();
 
-        return true;
+        for (Course course : courseList) {
+           String numeCurs = course.getCourseName();
+            if(numeCurs.equals(courseName)){
+
+                return true;
+            }
+        }
+        return false;
     }
 
     public void updateCourse(Course course) {
@@ -80,3 +87,5 @@ public class CourseRepository {
         return coursesList;
     }
 }
+
+
