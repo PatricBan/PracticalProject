@@ -1,5 +1,6 @@
 import dao.ClientRepository;
 import dao.CourseRepository;
+import dao.TrainerRepository;
 import entity.Client;
 import entity.Trainer;
 import org.hibernate.Session;
@@ -14,52 +15,77 @@ public class Main {
     public static void main(String[] args) {
 
         CourseRepository courseRepository = new CourseRepository();
+        ClientRepository clientRepository = new ClientRepository();
+        TrainerRepository trainerRepository = new TrainerRepository();
+        Client client = new Client();
 
         Scanner sc = new Scanner(System.in);
-        System.out.println(courseRepository.checkCourseName("abc"));
-//        boolean isRegistering = true;
-//        System.out.println("1. Register \n2. LogIn");
-//        byte registerIndex = sc.nextByte();
-//        sc.nextLine();
-//
-//
-//        while (isRegistering) {
-//            switch (registerIndex) {
-//                case 1:
-//                    boolean isEmailTaken = true;
-//                    System.out.println("Registering");
-//                    while (isEmailTaken) {
-//                        System.out.print("email: ");
-//                        String email = sc.nextLine();
-//                        isEmailTaken = checkEmail(email);
-//                        if (isEmailTaken == true) {
-//                            System.out.println("Email is taken!!");
-//                        }
-//                    }
-//                    System.out.print("password: ");
-//                    String password = sc.nextLine();
-//                    isRegistering = false;
-//                    break;
-//                case 2:
-//
-//                    isRegistering = false;
-//                    break;
-//                default:
-//                    System.out.println("1. SignIn \n2. LogIn");
-//                    registerIndex = sc.nextByte();
-//                    sc.nextLine();
-//                    break;
-//            }
-//        }
+        boolean isChoosing = true;
+
+        System.out.println("1. Register \n2. LogIn");
+        byte registerIndex = sc.nextByte();
+        sc.nextLine();
+
+        while (isChoosing) {
+            isChoosing = false;
+            switch (registerIndex) {
+                case 1:
+                    client = new Client();
+                    boolean isEmailTaken = true;
+                    String email = null;
+
+                    System.out.println("Registering");
+                    while (isEmailTaken) {
+                        System.out.print("email: ");
+                        email = sc.nextLine();
+                        isEmailTaken = clientRepository.checkEmail(email);
+                        if (isEmailTaken == true) {
+                            System.out.println("Email is taken!!");
+                        }
+                    }
+                    client.setEmail(email);
+                    System.out.print("password: ");
+                    String password = sc.nextLine();
+                    client.setPassword(password);
+                    clientRepository.createClient(client);
+                    client = clientRepository.getClient(email);
+                    break;
+                case 2:
+                    System.out.println("Introduceti adresa email");
+                    email = sc.nextLine();
+                    System.out.println("Introduceti parola");
+                    password = sc.nextLine();
+                    client = clientRepository.logInByMail(email,password);
+                    //client = clientRepository.getClient(clientRepository.logInByMail(email,password).getEmail());
+                    break;
+                default:
+                    isChoosing = true;
+                    System.out.println("1. SignIn \n2. LogIn");
+                    registerIndex = sc.nextByte();
+                    sc.nextLine();
+                    break;
+            }
+            System.out.println("End of switch");
+
+
+        }
+        client.toString();
+        System.out.println("End of while");
+
+        HibernateUtil.shutdown();
+    }
+}
+
+
+
 
 /*
     System.out.println("Introduceti numele cursului");
     String courseName = sc.nextLine();
  */
 
-    }
 
-    //TODO: SignIn/LogIn
+//TODO: SignIn/LogIn
         /*
         LogIn verifica daca emailul si parola introdusa exista. -AZ
         -
@@ -87,23 +113,6 @@ public class Main {
 //        HibernateUtil.shutdown();
 
 
-    public static boolean checkEmail(String email) {
-
-        List<String> emails = new ArrayList<>();
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("select c.email FROM Client c");
-            emails = query.getResultList();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        if (emails.stream().anyMatch(anyEmail -> anyEmail.equals(email))) {
-            return true;
-        }
-        return false;
-    }
 
 
 
-
-}
