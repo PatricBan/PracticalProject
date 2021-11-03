@@ -1,4 +1,5 @@
 import dao.ClientRepository;
+import dao.CourseRepository;
 import entity.Client;
 import entity.Trainer;
 import org.hibernate.Session;
@@ -12,41 +13,44 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        CourseRepository courseRepository = new CourseRepository();
+
         Scanner sc = new Scanner(System.in);
-        boolean isRegistering = true;
-        System.out.println("1. Register \n2. LogIn");
-        byte registerIndex = sc.nextByte();
-        sc.nextLine();
-
-
-        while (isRegistering) {
-            switch (registerIndex) {
-                case 1:
-                    boolean isEmailTaken = true;
-                    System.out.println("Registering");
-                    while (isEmailTaken) {
-                        System.out.print("email: ");
-                        String email = sc.nextLine();
-                        isEmailTaken = checkEmail(email);
-                        if (isEmailTaken == true) {
-                            System.out.println("Email is taken!!");
-                        }
-                    }
-                    System.out.print("password: ");
-                    String password = sc.nextLine();
-                    isRegistering = false;
-                    break;
-                case 2:
-
-                    isRegistering = false;
-                    break;
-                default:
-                    System.out.println("1. SignIn \n2. LogIn");
-                    registerIndex = sc.nextByte();
-                    sc.nextLine();
-                    break;
-            }
-        }
+        System.out.println(courseRepository.checkCourseName("abc"));
+//        boolean isRegistering = true;
+//        System.out.println("1. Register \n2. LogIn");
+//        byte registerIndex = sc.nextByte();
+//        sc.nextLine();
+//
+//
+//        while (isRegistering) {
+//            switch (registerIndex) {
+//                case 1:
+//                    boolean isEmailTaken = true;
+//                    System.out.println("Registering");
+//                    while (isEmailTaken) {
+//                        System.out.print("email: ");
+//                        String email = sc.nextLine();
+//                        isEmailTaken = checkEmail(email);
+//                        if (isEmailTaken == true) {
+//                            System.out.println("Email is taken!!");
+//                        }
+//                    }
+//                    System.out.print("password: ");
+//                    String password = sc.nextLine();
+//                    isRegistering = false;
+//                    break;
+//                case 2:
+//
+//                    isRegistering = false;
+//                    break;
+//                default:
+//                    System.out.println("1. SignIn \n2. LogIn");
+//                    registerIndex = sc.nextByte();
+//                    sc.nextLine();
+//                    break;
+//            }
+//        }
 
 /*
     System.out.println("Introduceti numele cursului");
