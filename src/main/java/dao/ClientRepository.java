@@ -17,6 +17,21 @@ public class ClientRepository {
 
     // TODO assign client to a course
 
+    public static boolean checkEmail(String email) {
+
+        List<String> emails = new ArrayList<>();
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("select c.email FROM Client c");
+            emails = query.getResultList();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        if (emails.stream().anyMatch(anyEmail -> anyEmail.equals(email))) {
+            return true;
+        }
+        return false;
+    }
 
     public Client logInByMail(String email, String password) {
         try {
@@ -24,29 +39,28 @@ public class ClientRepository {
             Criteria criteria = session.createCriteria(Client.class);
             Client client = (Client) criteria.add(Restrictions.eq("email", email))
                     .uniqueResult();
-            if (client != null) {
-                System.out.println("Bun venit " + client.getFirstName());
-
-            } else {
-                System.out.println("Email nu exista");
-
+            if (client == null) {
+                System.out.println("Emailul introdus nu exista");
             }
 
             if (client != null) {
-                if (client.getPassword().equals(password)) {
+                if (!(client.getPassword().equals(password))) {
 //            client =(Client) criteria.add(Restrictions.eq("password", password)).uniqueResult();
 //            if (client==null){
-                    System.out.println("Selecteaza cursul ");
-                } else {
                     System.out.println("Parola incorecta");
+                } else {
+                    return client;
                 }
             }
-            return client;
+
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
+        return null;
     }
+
+
 
 
     //CRUD
@@ -86,6 +100,7 @@ public class ClientRepository {
         }
     }
 
+    // TODO : de modificat sa gaseasca clientul cu adresa introdusa ca email
     public Client getClient(String email) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
