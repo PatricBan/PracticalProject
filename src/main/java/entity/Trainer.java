@@ -6,11 +6,11 @@ import java.util.Set;
 
 
 @Entity
-@Table (name = "trainers")
+@Table(name = "trainers")
 public class Trainer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private Integer idTrainer;
+    private Integer idTrainer;
 
     @ManyToMany(mappedBy = "trainers", cascade = CascadeType.ALL)
     private Set<Client> clients;
@@ -18,16 +18,16 @@ public class Trainer {
     @ManyToMany(mappedBy = "trainers", cascade = CascadeType.ALL)
     private Set<Course> courses;
 
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phoneNumber;
+    private Date birthDate;
 
-     private String firstName;
-     private String lastName;
-     private String email;
-     private String phoneNumber;
-     private Date birthDate;
+    public Trainer() {
 
-     public Trainer() {
-
-     }
+    }
 
     public Integer getIdTrainer() {
         return idTrainer;
@@ -77,10 +77,21 @@ public class Trainer {
         this.birthDate = birthDate;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Trainer{" +
                 "idTrainer=" + idTrainer +
+                ", clients=" + clients +
+                ", courses=" + courses +
+                ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

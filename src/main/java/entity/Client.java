@@ -1,7 +1,7 @@
 package entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -14,17 +14,17 @@ public class Client {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "client_trainer",
-            joinColumns = { @JoinColumn(name = "idClient") },
-            inverseJoinColumns = { @JoinColumn(name = "idTrainer")})
+            joinColumns = {@JoinColumn(name = "idClient")},
+            inverseJoinColumns = {@JoinColumn(name = "idTrainer")})
     private Set<Trainer> trainers;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "client_course",
-            joinColumns = { @JoinColumn(name = "idClient") },
-            inverseJoinColumns = { @JoinColumn(name = "idCourse")})
+            joinColumns = {@JoinColumn(name = "idClient")},
+            inverseJoinColumns = {@JoinColumn(name = "idCourse")})
     private Set<Course> courses;
 
-
+    private String password;
     private String firstName;
     private String lastName;
     private Integer age;
@@ -38,43 +38,101 @@ public class Client {
     public Client() {
     }
 
-    public Integer getIdClient() { return idClient;}
+    public Integer getIdClient() {
+        return idClient;
+    }
 
-    public void setIdCourse(Integer idClient) { this.idClient = idClient;}
+    public void setIdCourse(Integer idClient) {
+        this.idClient = idClient;
+    }
 
-    public String getFirstName() { return firstName;}
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public void setCourseName(String firstName) { this.firstName = firstName;}
+    public void setCourseName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getLastName() { return lastName;}
+    public String getLastName() {
+        return lastName;
+    }
 
-    public void setLastName(String lastName) { this.lastName = lastName;}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public Integer getAge() { return age;}
+    public Integer getAge() {
+        return age;
+    }
 
-    public void setAge(Integer age) { this.age = age;}
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-    public String getEmail() { return email;}
+    public String getEmail() {
+        return email;
+    }
 
-    public void setEmail(String email) { this.email = email;}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getPhoneNumber() { return phoneNumber;}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber;}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public String getCategory() { return category;}
+    public String getCategory() {
+        return category;
+    }
 
-    public void setCategory(String category) { this.category = category;}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-    public Date getBirthDate() { return birthDate;}
+    public Date getBirthDate() {
+        return birthDate;
+    }
 
-    public void setBirthDate(Date birthDate) { this.birthDate = birthDate;}
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
-    public Date getSubscriptionDate() { return subscriptionDate;}
+    public Date getSubscriptionDate() {
+        return subscriptionDate;
+    }
 
-    public void setSubscriptionDate(Date subscriptionDate) { this.subscriptionDate = subscriptionDate;}
+    public void setSubscriptionDate(Date subscriptionDate) {
+        this.subscriptionDate = subscriptionDate;
+    }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
-    public String toString() { return idClient + " First Name: " + firstName + " Last Name: " + lastName + " Age: " + age + " E-mail Address: " + email + " Phone Number: " + phoneNumber + " Category: " + category + " Birth Date: " + birthDate + " Subscription Date: " + subscriptionDate;}
+    public String toString() {
+        return "Client{" +
+                "idClient=" + idClient +
+                ", trainers=" + trainers +
+                ", courses=" + courses +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", category='" + category + '\'' +
+                ", birthDate=" + birthDate +
+                ", subscriptionDate=" + subscriptionDate +
+                '}';
+    }
 }
