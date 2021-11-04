@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -32,7 +33,7 @@ public class Client {
     private String phoneNumber;
     private String category;
     private Date birthDate;
-    private Date subscriptionDate;
+    private LocalDate subscriptionDate;
 
 
     public Client() {
@@ -66,7 +67,7 @@ public class Client {
         return firstName;
     }
 
-    public void setCourseName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -118,11 +119,11 @@ public class Client {
         this.birthDate = birthDate;
     }
 
-    public Date getSubscriptionDate() {
+    public LocalDate getSubscriptionDate() {
         return subscriptionDate;
     }
 
-    public void setSubscriptionDate(Date subscriptionDate) {
+    public void setSubscriptionDate(LocalDate subscriptionDate) {
         this.subscriptionDate = subscriptionDate;
     }
 
