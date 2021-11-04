@@ -93,7 +93,6 @@ public class Main {
                 System.out.println("2. Sign up for a course");
                 System.out.println("3. Find your personal trainer");
                 System.out.println("4. Back to login menu");
-                System.out.println("5. Exit");
 
                 navigateAppIndex = sc.nextByte();
                 sc.nextLine();
@@ -108,7 +107,7 @@ public class Main {
                         sc.nextLine();
                         System.out.print("phoneNumber: ");
                         String phoneNumber = sc.nextLine();
-                        System.out.print("birthDate: ");
+                        System.out.print("birthDate(yyyy-mm-dd): ");
                         SimpleDateFormat formatter =new SimpleDateFormat("yyyy-MM-dd");
                         Date birthDate = null;
                         try {
@@ -131,16 +130,13 @@ public class Main {
                     case 3:
 
                         break;
-                    case 4:
-
-                        break;
                     default:
                         isNavigatingApp = false;
                         isRegistering = true;
                         break;
                 }
             }
-            System.out.println("End of navigating app");
+
         }
         System.out.println("App Shut Down");
         HibernateUtil.shutdown();
