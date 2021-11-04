@@ -7,7 +7,11 @@ import org.hibernate.Session;
 import util.HibernateUtil;
 
 import javax.persistence.Query;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,58 +24,125 @@ public class Main {
         Client client = new Client();
 
         Scanner sc = new Scanner(System.in);
-        boolean isChoosing = true;
+        boolean isRegistering = true;
+        boolean isNavigatingApp = false;
+        boolean isAppRunning = true;
 
-        System.out.println("1. Register \n2. LogIn");
-        byte registerIndex = sc.nextByte();
-        sc.nextLine();
 
-        while (isChoosing) {
-            isChoosing = false;
-            switch (registerIndex) {
-                case 1:
-                    client = new Client();
-                    boolean isEmailTaken = true;
-                    String email = null;
 
-                    System.out.println("Registering");
-                    while (isEmailTaken) {
-                        System.out.print("email: ");
-                        email = sc.nextLine();
-                        isEmailTaken = clientRepository.checkEmail(email);
-                        if (isEmailTaken == true) {
-                            System.out.println("Email is taken!!");
+        while (isAppRunning) {
+            System.out.println("1. Register \n2. LogIn \n3. Shut Down");
+            byte registerIndex = sc.nextByte();
+            sc.nextLine();
+            while (isRegistering) {
+                isRegistering = false;
+                switch (registerIndex) {
+                    case 1:
+                        client = new Client();
+                        boolean isEmailTaken = true;
+                        String email = null;
+                        String password = null;
+                        System.out.println("Registering");
+                        while (isEmailTaken) {
+                            System.out.print("email: ");
+                            email = sc.nextLine();
+                            isEmailTaken = clientRepository.checkEmail(email);
+                            if (isEmailTaken == true) {
+                                System.out.println("Email is taken!!");
+                            }
                         }
-                    }
-                    client.setEmail(email);
-                    System.out.print("password: ");
-                    String password = sc.nextLine();
-                    client.setPassword(password);
-                    clientRepository.createClient(client);
-                    client = clientRepository.getClient(email);
-                    break;
-                case 2:
-                    System.out.println("Introduceti adresa email");
-                    email = sc.nextLine();
-                    System.out.println("Introduceti parola");
-                    password = sc.nextLine();
-                    client = clientRepository.logInByMail(email,password);
-                    //client = clientRepository.getClient(clientRepository.logInByMail(email,password).getEmail());
-                    break;
-                default:
-                    isChoosing = true;
-                    System.out.println("1. SignIn \n2. LogIn");
-                    registerIndex = sc.nextByte();
-                    sc.nextLine();
-                    break;
+                        client.setEmail(email);
+                        System.out.print("password: ");
+                        password = sc.nextLine();
+                        client.setPassword(password);
+                        clientRepository.createClient(client);
+                        isNavigatingApp = true;
+                        break;
+                    case 2:
+                        System.out.println("Introduceti adresa email");
+                        email = sc.nextLine();
+                        System.out.println("Introduceti parola");
+                        password = sc.nextLine();
+                        client = clientRepository.logInByMail(email, password);
+                        isNavigatingApp = true;
+                        break;
+                    case 3:
+                        isRegistering = false;
+                        isNavigatingApp = false;
+                        isAppRunning = false;
+                        System.out.println("Byeeeeeeeeeeeee");
+                        break;
+                    default:
+                        isRegistering = true;
+                        System.out.println("1. Register \n2. LogIn \n3. Shut Down");
+                        registerIndex = sc.nextByte();
+                        sc.nextLine();
+                        break;
+                }
+
             }
-            System.out.println("End of switch");
+            if (isNavigatingApp == true) {
+                System.out.println("Welcome!");
+            }
 
 
+            while (isNavigatingApp) {
+
+                byte navigateAppIndex;
+                System.out.println("1. Update data");
+                System.out.println("2. Sign up for a course");
+                System.out.println("3. Find your personal trainer");
+                System.out.println("4. Back to login menu");
+                System.out.println("5. Exit");
+
+                navigateAppIndex = sc.nextByte();
+                sc.nextLine();
+                switch (navigateAppIndex) {
+                    case 1:
+                        System.out.print("firstName: ");
+                        String firstName = sc.nextLine();
+                        System.out.print("lastName: ");
+                        String lastName = sc.nextLine();
+                        System.out.print("age: ");
+                        Integer age = sc.nextInt();
+                        sc.nextLine();
+                        System.out.print("phoneNumber: ");
+                        String phoneNumber = sc.nextLine();
+                        System.out.print("birthDate: ");
+                        SimpleDateFormat formatter =new SimpleDateFormat("yyyy-MM-dd");
+                        Date birthDate = null;
+                        try {
+                            birthDate = formatter.parse(sc.nextLine());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        client.setFirstName(firstName);
+                        client.setLastName(lastName);
+                        client.setAge(age);
+                        client.setPhoneNumber(phoneNumber);
+                        client.setBirthDate(birthDate);
+                        client.setSubscriptionDate(LocalDate.now());
+
+                        clientRepository.updateClient(client);
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    default:
+                        isNavigatingApp = false;
+                        isRegistering = true;
+                        break;
+                }
+            }
+            System.out.println("End of navigating app");
         }
-        client.toString();
-        System.out.println("End of while");
-
+        System.out.println("App Shut Down");
         HibernateUtil.shutdown();
     }
 }
